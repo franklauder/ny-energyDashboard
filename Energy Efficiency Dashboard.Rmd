@@ -1,0 +1,125 @@
+---
+title: "NY Efficiency Dashboard"
+author: "Frank Laudert"
+date: "2024-03-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+
+
+
+library(tidycensus)
+
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(tidyr)
+library(hexbin)
+library(RColorBrewer)
+library(forcats)
+library(crosstalk)
+
+
+library(mapview)
+
+library(ggiraph)
+
+library(survey)
+
+library(srvyr)
+
+library(sf)
+
+library(jsonlite)
+
+library(tigris)
+
+library(stringr)
+
+library(leaflet)
+library(htmlwidgets)
+library(htmltools)
+library(gt)
+library(DT)
+
+#library(sp)
+
+
+
+
+
+```
+
+
+
+
+```{r}
+
+
+energy_2 <- energy_2 %>% 
+  mutate_if(is.character, factor)
+
+
+
+```
+
+
+
+```{r}
+energy_2<-energy_2 %>% 
+  rename("county"="project_county",
+        "city"="project_city",
+        "zip"="Project ZIP",
+        "climate_zone"="Climate Zone",
+        "customer_type"="Customer Type",
+        "home_size"="Size of Home",
+        "home_volume"="Volume of Home",
+        "year_home_built"="Year Home Built",
+        "total_project_cost"="Total Project Cost ($)",
+        "contractor_insentive"="Contractor Incentive ($)",
+        "total_incentives"="Total Incentives ($)",
+        
+        "amount_financed_through_program"="Amount Financed Through Program ($)",
+        "baseline_electric_kwh"="Baseline Electric (kWh)",
+        "base_line_gas_MMBTU"="Baseline Gas (MMBtu)",
+        "reporting_electric_kwh"="Reporting Electric (kWh)",
+        "reporting_gas_MMBtu"="Reporting Gas (MMBtu)")
+```
+
+
+```{r}
+
+energy_2<-energy_2 %>% 
+  rename("project_city"="Project City")
+
+
+```
+
+
+```{r}
+energy_2$`Location 1`<-stringr::str_extract(string = energy_2$`Location 1`,
+                                            pattern = "(?<=\\().*(?=\\))")
+                                            
+                                            
+                                            
+                                            
+```
+
+
+
+extract longitude and lattitude coordinates from location 1 column. 
+
+```{r}
+
+
+
+pattern = "(?<=\\().*(?=\\))")
+
+
